@@ -6,6 +6,8 @@ import matplotlib.pyplot as plot
 import random
 from scipy import stats
 global fs;fs=11
+import re
+import math
 
 ### Project_1
 class proj_1():
@@ -221,20 +223,119 @@ class proj_2():
                                  np.max(deg3)+2.5),
                                  color='b');                 
 
- 
-                    
+
+### Prject_3
+class proj_3():
+    ##[Testing Faith, with K-means Cluster]
+    def q1():
+        f=open('C:/Users/LLH/Desktop/EE 511/assignment/3/old-faithful.txt')
+        predata=f.readlines()
+        f.close
+        dura=[];time=[]
+        for i in predata:
+            k=re.split(r'[\s]*',i)
+            try:
+                int(k[0])
+            except ValueError:
+                continue
+            else:
+                dura.append(float(k[1]))
+                time.append(float(k[2]))
+        ## K-means cluster
+        # initial centers
+        c=input('Please initial centers:format:x1 y1 x2 y2=')
+        c=[float(i) for i in c.split(' ')];
+        c1=c[0:2];c2=c[2:4]
+        cr=float(input('Please input convergence criterion='))
+        # calculate distances,classify points and find new centers
+        k=0
+        while 1:
+            k+=1
+            sx1=0;sy1=0;sx2=0;sy2=0;n1=0;n2=0
+            c1_d=[];c1_t=[];c2_d=[];c2_t=[]
+            for i in range(len(dura)):
+                if ((dura[i]-c1[0])**2+(time[i]-c1[1])**2)\
+                <((dura[i]-c2[0])**2+(time[i]-c2[1])**2):
+                    sx1+=dura[i];sy1+=time[i];n1+=1
+                    c1_d.append(dura[i]);
+                    c1_t.append(time[i]);
+                else:
+                    sx2+=dura[i];sy2+=time[i];n2+=1
+                    c2_d.append(dura[i]);
+                    c2_t.append(time[i]);
+            nc1_d=sx1/n1;nc1_t=sy1/n1
+            nc2_d=sx2/n2;nc2_t=sy2/n2
+            dist1=(nc1_d-c1[0])**2+(nc1_t-c1[1])**2
+            dist2=(nc2_d-c2[0])**2+(nc2_t-c2[1])**2
+            if dist1+dist2<=cr:
+                break
+            elif k>=1000:
+                print('Warning: calculating times over 1k,\
+                please change convergence criterion.')
+                break
+            else:
+                c1=[nc1_d,nc1_t];c2=[nc2_d,nc2_t]
+        #drawing scatter 
+        fz=15
+        plot.scatter(c1_d,c1_t,s=50,c='red',linewidth=0)
+        plot.xticks(np.arange(1,5.5,0.5))
+        plot.yticks(np.arange(40,100,10))
+        plot.hold(True)
+        plot.scatter(c2_d,c2_t,s=50,c='blue',linewidth=0)
+        plot.xticks(np.arange(1,5.5,0.5))
+        plot.yticks(np.arange(40,100,10))
+        plot.hold(True)
+        plot.scatter([nc1_d,nc2_d],[nc1_t,nc2_t],s=150,c='black')
+        plot.xticks(np.arange(1,5.5,0.5))
+        plot.yticks(np.arange(40,100,10))
+        plot.xlabel('duration',fontsize=fz)
+        plot.ylabel('waiting time',fontsize=fz)
+        plot.grid()
+        plot.show()       
+        print('previous centers=',c1,c2)
+        print('final centers=',[nc1_d,nc1_t],[nc2_d,nc2_t])
+        print('calculating times=',k)       
+
+    ##[Generating Mixed Samples]
+    def q2():
+        dataset=[0.4*random.gauss(0,1)+0.6*random.gauss(1,1)\
+         for i in range(1000)]
+        c=input('Please initial center(1D-2 centers)\
+        :format:x1 x2=')
+        c=c.split(' ')
+        c1=float(c[0]);c2=float(c[1])
+        cr=float(input('Please input convergence criterion='))
+        k=0
+        while 1:
+            k+=1
+            sx1=0;sx2=0;n1=0;n2=0
+            for i in dataset:
+                if (i-c1)**2<(i-c2)**2:
+                    sx1+=i;n1+=1
+                else:
+                    sx2+=i;n2+=1
+            nc1=sx1/n1;nc2=sx2/n2
+            dist=(nc1-c1)**2+(nc2-c2)**2
+            if dist<cr:
+                break
+            elif k>=1000:
+                print('Warning: calculating times over 1k,\
+                please change convergence criterion.')
+                break
+            else:
+                c1=nc1;c2=nc2
+        #drawing histogram    
+        fz=15
+        plot.hist(dataset,bins=np.arange(math.ceil(min(dataset))-1,
+                                         math.ceil(max(dataset))+0.5,0.5))
+        plot.xticks(np.arange(math.ceil(min(dataset))-1,
+                    math.ceil(max(dataset))+1,0.5),fontsize=fz)
+        plot.xlabel('Value',fontsize=fz)
+        plot.ylabel('Frequency',fontsize=fz)
+        plot.show()
+        print('previous centers=',c1,c2)
+        print('final centers=',nc1,nc2)
+        print('calculating times=',k)
             
         
-
-        
-
-
-
-
-
-
-
-     
-   
-
-
+         
