@@ -8,6 +8,7 @@ from scipy import stats
 global fs;fs=11
 import re
 import math
+from scipy.stats import bernoulli as ber
 
 ### Project_1
 class proj_1():
@@ -298,8 +299,12 @@ class proj_3():
 
     ##[Generating Mixed Samples]
     def q2():
-        dataset=[0.4*random.gauss(0,1)+0.6*random.gauss(1,1)\
-         for i in range(1000)]
+        k=ber.rvs(0.4,size=1000);dataset=[]
+        for i in k:
+            if i==1:
+                dataset.append(random.gauss(-1,1))
+            else:
+                dataset.append(random.gauss(1,1))
         c=input('Please initial center(1D-2 centers)\
         :format:x1 x2=')
         c=c.split(' ')
@@ -326,10 +331,14 @@ class proj_3():
                 c1=nc1;c2=nc2
         #drawing histogram    
         fz=15
-        plot.hist(dataset,bins=np.arange(math.ceil(min(dataset))-1,
-                                         math.ceil(max(dataset))+0.5,0.5))
-        plot.xticks(np.arange(math.ceil(min(dataset))-1,
-                    math.ceil(max(dataset))+1,0.5),fontsize=fz)
+        d_g=np.arange(-5,5,0.01)
+        g1=(1/(2*np.pi))*np.exp(-(d_g-(-1))**2/(2*1))
+        g2=(1/(2*np.pi))*np.exp(-(d_g-1)**2/(2*1))
+        plot.plot(d_g,0.4*g1,c='r')
+        plot.plot(d_g,0.6*g2,c='g')
+        plot.plot(d_g,0.4*g1+0.6*g2,c='black')
+        plot.figure()
+        plot.hist(dataset,bins=np.arange(-5,5,0.1))
         plot.xlabel('Value',fontsize=fz)
         plot.ylabel('Frequency',fontsize=fz)
         plot.show()
