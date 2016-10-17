@@ -310,15 +310,17 @@ class proj_3():
         c=c.split(' ')
         c1=float(c[0]);c2=float(c[1])
         cr=float(input('Please input convergence criterion='))
-        k=0
+        k=0;data1=[];data2=[]
         while 1:
             k+=1
             sx1=0;sx2=0;n1=0;n2=0
             for i in dataset:
                 if (i-c1)**2<(i-c2)**2:
                     sx1+=i;n1+=1
+                    data1.append(i)
                 else:
                     sx2+=i;n2+=1
+                    data2.append(i)
             nc1=sx1/n1;nc2=sx2/n2
             dist=(nc1-c1)**2+(nc2-c2)**2
             if dist<cr:
@@ -338,7 +340,8 @@ class proj_3():
         plot.plot(d_g,0.6*g2,c='g')
         plot.plot(d_g,0.4*g1+0.6*g2,c='black')
         plot.figure()
-        plot.hist(dataset,bins=np.arange(-5,5,0.1))
+        plot.hist(data1,bins=np.arange(-5,5,0.1),color='red')
+        plot.hist(data2,bins=np.arange(-5,5,0.1),color='blue')
         plot.xlabel('Value',fontsize=fz)
         plot.ylabel('Frequency',fontsize=fz)
         plot.show()
