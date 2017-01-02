@@ -13,7 +13,7 @@ Here are 5 projects I did in the course EE 511-Simulation Methods for Stochastic
  - [**Project 4**][Project 4] </br>
    Expectation Maximization (EM) algorithm, Gaussian Mixture Model (GMM), Noise in GMM
  - [**Project 5**][Project 5] </br>
-   Monte Carlo, Variance Reduction Methods for Monte Carlo, Simulated Anealing algorithm
+   Monte Carlo, Variance Reduction Methods for Monte Carlo, Simulated Annealing algorithm
  
 [Project 1]:https://github.com/linghaol/StochasticSystem-Simulation-Project/tree/master/Project%201
 [Project 2]:https://github.com/linghaol/StochasticSystem-Simulation-Project/tree/master/Project%202
