@@ -30,5 +30,5 @@ Please check out in the specific folder.
 If you have any advise for my projects, feel free to contact me via this address: llh455398472@gmail.com or linghaol@usc.edu</br>
 Thank you! 
 
-Linghao Li
+Linghao Li </br>
 1/1/2017
