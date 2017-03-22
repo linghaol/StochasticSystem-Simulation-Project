@@ -23,7 +23,7 @@ Here are 5 projects I did in the course EE 511-Simulation Methods for Stochastic
 
 ## Details
 
-Please check out in the specific folder.
+Please check out in specific folders.
 
 ## Others
 
