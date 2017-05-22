@@ -44,7 +44,6 @@ class proj_1:
         plot.xticks(fontsize=fs);plot.yticks(fontsize=fs)
         plot.xlabel('Value',fontsize=fs);plot.ylabel('Number',fontsize=fs)
         plot.show()
-        return
     
     def q2():
         ## 2.[Coin Limits]
@@ -59,7 +58,6 @@ class proj_1:
             plot.xlabel('Value('+bt[i]+')',fontsize=fs-1);
             plot.ylabel('Number',fontsize=fs-1)
         plot.show()
-        return
     
     def q3():
         ## 3.[Bootstraps]
@@ -77,4 +75,3 @@ class proj_1:
         m=np.mean(boot);s=np.std(boot)
         ci_min=m-1.96*s/np.sqrt(k_t);ci_max=m+1.96*s/np.sqrt(k_t)
         print('95% bootstrap confidence interval: (',ci_min,',',ci_max,')')
-        return
